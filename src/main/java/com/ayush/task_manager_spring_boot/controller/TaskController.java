@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ayush.task_manager_spring_boot.enums.Priority;
+import com.ayush.task_manager_spring_boot.enums.TaskStatus;
 import com.ayush.task_manager_spring_boot.model.Task;
 import com.ayush.task_manager_spring_boot.service.TaskService;
 
@@ -32,6 +34,21 @@ public class TaskController {
     @GetMapping
     public List<Task> getAllTasks(){
         return taskService.getAllTasks();
+    }
+
+    @GetMapping("/{id}")
+    public Task getTaskById(@PathVariable Long id){
+        return taskService.getTaskById(id);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Task> getTasksByStatus(@PathVariable String status){
+        return taskService.getTasksByStatus(TaskStatus.valueOf(status.toUpperCase()));
+    }
+
+    @GetMapping("/priority/{priority}")
+    public List<Task> getTasksByPriority(@PathVariable String priority){
+        return taskService.getTasksByPriority(Priority.valueOf(priority.toUpperCase()));
     }
 
     @PutMapping("/{id}")

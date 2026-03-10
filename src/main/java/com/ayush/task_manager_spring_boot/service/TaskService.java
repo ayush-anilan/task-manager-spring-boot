@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.ayush.task_manager_spring_boot.enums.Priority;
+import com.ayush.task_manager_spring_boot.enums.TaskStatus;
 import com.ayush.task_manager_spring_boot.model.Task;
 import com.ayush.task_manager_spring_boot.repository.TaskRepository;
 
@@ -30,6 +32,14 @@ public class TaskService {
 
     public Task getTaskById(Long id) {
         return taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+    }
+
+    public List<Task> getTasksByStatus(TaskStatus status){
+        return taskRepository.findByStatus(status);
+    }
+
+    public List<Task> getTasksByPriority(Priority priority){
+        return taskRepository.findByPriority(priority);
     }
 
     public Task updateTask(Long id, Task updatedTask) {
